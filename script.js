@@ -1,18 +1,41 @@
-function letterCombinations(input_digit) {
-  //Complete the function
-	let arr = ["0","1","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"];
-	let obj = new Array();
-	helper(input_digit,0,arr,"");
-	function helper(digit,start,arr,str){
-		if(str.length==digit.length)
-		{
-			obj.push(str);
-			return;
-		}
-		let s = arr[digit.charAt(start)];
-		for(let i=0;i<s.length;i++){
-			helper(digit,start+1,arr,str+s.charAt(i));
-		}
-	}
-	return obj;
+function letterCombinations(digits) {
+  const digitToLetters = {
+    '2': 'abc',
+    '3': 'def',
+    '4': 'ghi',
+    '5': 'jkl',
+    '6': 'mno',
+    '7': 'pqrs',
+    '8': 'tuv',
+    '9': 'wxyz'
+  };
+
+  if (digits.length === 0) {
+    return [];
+  }
+
+  const result = [];
+
+  function backtrack(currentString, nextDigits) {
+    if (nextDigits.length === 0) {
+      result.push(currentString);
+      return;
+    }
+
+    const letters = digitToLetters[nextDigits[0]];
+
+    for (let i = 0; i < letters.length; i++) {
+      const letter = letters[i];
+      backtrack(currentString + letter, nextDigits.slice(1));
+    }
+  }
+
+  backtrack('', digits);
+  return result.sort();
 }
+
+module.exports = letterCombinations;
+Footer
+© 2023 GitHub, Inc.
+Footer navigation
+Terms
